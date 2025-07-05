@@ -6,14 +6,26 @@ public static class Arrays
     /// integer greater than 0.
     /// </summary>
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
+
+
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        /// <MultiplesOf prcess>
+        /// 1. will use double [] mulitples to store results
+        /// 2. double number is the number to be multiplied
+        /// 3. int length is the number of results to be stored 
+        /// 4. use a loop to multiply the number 'length' number of times starting at 0 (int i = 0; i < length; i++)  
+        /// 5. mulitply the number, starting at 1, adding it to the array before increasing the number to multiply by 1 increment
+        /// 6. return multiples
 
-        return []; // replace this return statement with your own
+        double[] multiples = new double[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            multiples[i] = number * (i + 1);
+        }
+
+        return multiples;
     }
 
     /// <summary>
@@ -25,9 +37,22 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        /// <RotateListRight prcess>
+        /// 1. split the list by the 'amount' into two lists using GetRange
+        /// 2. add first part of the list 'front' to the back of the list 'back' using % 
+        /// 3. update the original list using .Clear and .AddRange
+         
+        int n = data.Count;
+        amount = amount % n;
+
+        List<int> front = data.GetRange(n - amount, amount);
+        List<int> back = data.GetRange(0, n - amount);
+
+        data.Clear();
+        data.AddRange(front);
+        data.AddRange(back);
+
+        return;
+
     }
 }
