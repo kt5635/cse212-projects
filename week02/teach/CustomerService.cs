@@ -3,7 +3,8 @@
 /// added and allows customers to be serviced.
 /// </summary>
 public class CustomerService {
-    public static void Run() {
+    public static void Run()
+    {
         // Example code to see what's in the customer service queue:
         // var cs = new CustomerService(10);
         // Console.WriteLine(cs);
@@ -14,6 +15,9 @@ public class CustomerService {
         // Scenario: 
         // Expected Result: 
         Console.WriteLine("Test 1");
+        var service = new CustomerService(4);
+        service.AddNewCustomer();
+        service.ServeCustomer();
 
         // Defect(s) Found: 
 
@@ -23,10 +27,48 @@ public class CustomerService {
         // Scenario: 
         // Expected Result: 
         Console.WriteLine("Test 2");
+        var service2 = new CustomerService(4);
+        service2.AddNewCustomer();
+        service2.AddNewCustomer();
+        Console.WriteLine($"Before serving customers: {service2}");
+        service2.ServeCustomer();
+        service2.ServeCustomer();
+        Console.WriteLine($"After serving customers: {service2}");
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
+
+        // Test 3
+        // Scenario: 
+        // Expected Result: 
+        Console.WriteLine("Test 3");
+        var service3 = new CustomerService(4);
+        service3.ServeCustomer();
+
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: 
+        // Expected Result:
+        Console.WriteLine("Test 4");
+        var service4 = new CustomerService(4);
+        service4.AddNewCustomer();
+        service4.AddNewCustomer();
+        service4.AddNewCustomer();
+        service4.AddNewCustomer();
+        service4.AddNewCustomer();
+        Console.WriteLine($"Service Queue: {service4}");
+
+        Console.WriteLine("=================");
+
+        // Test 5
+        // Scenario: 
+        // Expected Result:
+        Console.WriteLine("Test 5");
+        var service5 = new CustomerService(0);
+        Console.WriteLine($"Size should be 10: {service}");
+
 
         // Add more Test Cases As Needed Below
     }
@@ -67,7 +109,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +130,16 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if (_queue.Count <= 0)
+        {
+            Console.WriteLine("No Customers in the queue");
+        }
+        else
+        {
+            var customer = _queue[0];
+            _queue.RemoveAt(0);
+            Console.WriteLine(customer);
+        }
     }
 
     /// <summary>
